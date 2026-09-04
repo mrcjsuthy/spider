@@ -1,0 +1,672 @@
+[
+ {
+  "direction": "one",
+  "from": "fire-alarm",
+  "health": "good",
+  "label": "Alarm signal to FENZ",
+  "notes": "Regulated path. Nothing digital may sit between these two.",
+  "owner": "Fire Engineer",
+  "protocol": "Monitored circuit",
+  "to": "fenz-monitoring",
+  "id": "e01"
+ },
+ {
+  "direction": "one",
+  "from": "fire-alarm",
+  "health": "good",
+  "label": "Evacuation trigger",
+  "owner": "Fire Engineer",
+  "protocol": "Hard-wired",
+  "to": "ews-pa",
+  "id": "e02"
+ },
+ {
+  "direction": "one",
+  "from": "fire-alarm",
+  "health": "good",
+  "label": "Fail-safe door release",
+  "notes": "Life-safety interlock. Doors must release on alarm without the network being up.",
+  "owner": "Fire Engineer",
+  "protocol": "Hard-wired relay",
+  "to": "access-control",
+  "id": "e03"
+ },
+ {
+  "direction": "one",
+  "from": "fire-alarm",
+  "health": "good",
+  "label": "Lift homing",
+  "owner": "Fire Engineer",
+  "protocol": "Hard-wired relay",
+  "to": "lift-control",
+  "id": "e04"
+ },
+ {
+  "direction": "one",
+  "from": "fire-alarm",
+  "health": "watch",
+  "label": "Smoke control & HVAC shutdown",
+  "owner": "Services Engineer",
+  "protocol": "Hard-wired + BACnet",
+  "to": "bms",
+  "id": "e05"
+ },
+ {
+  "direction": "one",
+  "from": "fire-alarm",
+  "health": "watch",
+  "label": "Alarm events — monitoring only",
+  "notes": "Read-only. This link exists so staff dashboards can see state; it must never be in the regulated alarm path.",
+  "protocol": "BACnet/IP",
+  "to": "event-bus",
+  "id": "e06"
+ },
+ {
+  "direction": "one",
+  "from": "sprinklers",
+  "health": "good",
+  "label": "Flow switch",
+  "owner": "Fire Engineer",
+  "protocol": "Monitored circuit",
+  "to": "fenz-monitoring",
+  "id": "e07"
+ },
+ {
+  "direction": "one",
+  "from": "emergency-lighting",
+  "health": "unset",
+  "label": "Test & fault status",
+  "protocol": "BACnet",
+  "to": "bms",
+  "id": "e08"
+ },
+ {
+  "direction": "one",
+  "from": "lift-emergency-comms",
+  "health": "watch",
+  "label": "Entrapment alarm",
+  "protocol": "SIP",
+  "to": "event-bus",
+  "id": "e09"
+ },
+ {
+  "direction": "one",
+  "from": "nurse-call",
+  "health": "watch",
+  "label": "Call events & response times",
+  "notes": "Response-time evidence is an audit requirement, so this link is not optional.",
+  "owner": "Care Operations",
+  "protocol": "REST",
+  "to": "care-management",
+  "id": "e10"
+ },
+ {
+  "direction": "one",
+  "from": "nurse-call",
+  "health": "risk",
+  "label": "Call & duress events",
+  "notes": "Routing to the right carer on the right device is where anticipatory care becomes real.",
+  "protocol": "MQTT",
+  "to": "event-bus",
+  "id": "e11"
+ },
+ {
+  "direction": "one",
+  "from": "nurse-call",
+  "health": "risk",
+  "label": "Resident to room mapping",
+  "protocol": "REST",
+  "to": "resident-index",
+  "id": "e12"
+ },
+ {
+  "direction": "one",
+  "from": "interrai",
+  "health": "watch",
+  "label": "Assessment outcomes",
+  "notes": "One way only. interRAI stays the source of truth; staff complete it there first.",
+  "owner": "Care Operations",
+  "protocol": "File / API",
+  "to": "care-management",
+  "id": "e13"
+ },
+ {
+  "direction": "two",
+  "from": "emar",
+  "health": "unset",
+  "label": "Medication records",
+  "protocol": "REST",
+  "to": "care-management",
+  "id": "e14"
+ },
+ {
+  "direction": "one",
+  "from": "falls-detection",
+  "health": "unset",
+  "label": "Fall alerts",
+  "protocol": "API / contact",
+  "to": "nurse-call",
+  "id": "e15"
+ },
+ {
+  "direction": "one",
+  "from": "wander-rtls",
+  "health": "unset",
+  "label": "Egress alerts",
+  "protocol": "REST",
+  "to": "access-control",
+  "id": "e16"
+ },
+ {
+  "direction": "two",
+  "from": "healthlink",
+  "health": "unset",
+  "label": "GP referrals & discharge summaries",
+  "protocol": "HL7 v2",
+  "to": "care-management",
+  "id": "e17"
+ },
+ {
+  "direction": "one",
+  "from": "care-management",
+  "health": "unset",
+  "label": "Care level billing",
+  "protocol": "REST",
+  "to": "finance-erp",
+  "id": "e18"
+ },
+ {
+  "direction": "two",
+  "from": "care-management",
+  "health": "risk",
+  "label": "Resident master record",
+  "protocol": "REST",
+  "to": "resident-index",
+  "id": "e19"
+ },
+ {
+  "direction": "one",
+  "from": "telehealth",
+  "health": "unset",
+  "label": "Consult notes",
+  "protocol": "REST",
+  "to": "care-management",
+  "id": "e20"
+ },
+ {
+  "direction": "one",
+  "from": "access-control",
+  "health": "risk",
+  "label": "Credential holder identity",
+  "protocol": "SCIM / REST",
+  "to": "resident-index",
+  "id": "e21"
+ },
+ {
+  "direction": "one",
+  "from": "access-control",
+  "health": "unset",
+  "label": "Event-driven camera call-up",
+  "protocol": "ONVIF",
+  "to": "cctv",
+  "id": "e22"
+ },
+ {
+  "direction": "one",
+  "from": "access-control",
+  "health": "unset",
+  "label": "Staff credentials",
+  "protocol": "SCIM",
+  "to": "identity",
+  "id": "e23"
+ },
+ {
+  "direction": "two",
+  "from": "door-intercom",
+  "health": "unset",
+  "label": "Door release from the resident's phone",
+  "protocol": "SIP / REST",
+  "to": "resident-app",
+  "id": "e24"
+ },
+ {
+  "direction": "one",
+  "from": "visitor-mgmt",
+  "health": "unset",
+  "label": "Temporary credentials",
+  "protocol": "REST",
+  "to": "access-control",
+  "id": "e25"
+ },
+ {
+  "direction": "one",
+  "from": "intruder",
+  "health": "unset",
+  "label": "Intruder events",
+  "protocol": "Contact / API",
+  "to": "event-bus",
+  "id": "e26"
+ },
+ {
+  "direction": "one",
+  "from": "cctv",
+  "health": "watch",
+  "label": "Video traffic on a dedicated VLAN",
+  "notes": "Camera count, resolution and retention drive the switch and storage spec. Size this before the network is ordered.",
+  "protocol": "IP",
+  "to": "core-network",
+  "id": "e27"
+ },
+ {
+  "direction": "two",
+  "from": "bms",
+  "health": "unset",
+  "label": "Plant control",
+  "protocol": "BACnet/IP",
+  "to": "hvac",
+  "id": "e28"
+ },
+ {
+  "direction": "two",
+  "from": "bms",
+  "health": "unset",
+  "label": "Scenes & schedules",
+  "protocol": "DALI / BACnet",
+  "to": "lighting-control",
+  "id": "e29"
+ },
+ {
+  "direction": "one",
+  "from": "bms",
+  "health": "watch",
+  "label": "Energy & plant telemetry",
+  "notes": "This link is the reason the BMS must be specified to expose data on open protocols.",
+  "protocol": "BACnet → API",
+  "to": "data-warehouse",
+  "id": "e30"
+ },
+ {
+  "direction": "one",
+  "from": "submetering",
+  "health": "risk",
+  "label": "Per-unit recharges",
+  "protocol": "CSV / API",
+  "to": "finance-erp",
+  "id": "e31"
+ },
+ {
+  "direction": "one",
+  "from": "solar-battery",
+  "health": "unset",
+  "label": "Generation & storage",
+  "protocol": "Modbus",
+  "to": "bms",
+  "id": "e32"
+ },
+ {
+  "direction": "one",
+  "from": "bms",
+  "health": "unset",
+  "label": "Plant faults raise work orders",
+  "protocol": "REST",
+  "to": "cmms",
+  "id": "e33"
+ },
+ {
+  "direction": "one",
+  "from": "lift-control",
+  "health": "unset",
+  "label": "Lift status & faults",
+  "protocol": "REST",
+  "to": "event-bus",
+  "id": "e34"
+ },
+ {
+  "direction": "one",
+  "from": "irrigation",
+  "health": "unset",
+  "label": "Zone control",
+  "protocol": "Modbus",
+  "to": "bms",
+  "id": "e35"
+ },
+ {
+  "direction": "one",
+  "from": "cabling",
+  "health": "good",
+  "label": "Physical layer",
+  "protocol": "Structured cabling",
+  "to": "core-network",
+  "id": "e36"
+ },
+ {
+  "direction": "two",
+  "from": "core-network",
+  "health": "watch",
+  "label": "Access layer",
+  "protocol": "IP",
+  "to": "wifi",
+  "id": "e37"
+ },
+ {
+  "direction": "two",
+  "from": "core-network",
+  "health": "unset",
+  "label": "Fibre distribution to units",
+  "protocol": "IP",
+  "to": "gpon",
+  "id": "e38"
+ },
+ {
+  "direction": "two",
+  "from": "core-network",
+  "health": "risk",
+  "label": "Internet egress",
+  "protocol": "IP / BGP",
+  "to": "wan",
+  "id": "e39"
+ },
+ {
+  "direction": "one",
+  "from": "comms-rooms",
+  "health": "risk",
+  "label": "Power, cooling, space",
+  "protocol": "Physical",
+  "to": "core-network",
+  "id": "e40"
+ },
+ {
+  "direction": "one",
+  "from": "identity",
+  "health": "unset",
+  "label": "Staff single sign-on",
+  "protocol": "SAML / OIDC",
+  "to": "village-mgmt",
+  "id": "e41"
+ },
+ {
+  "direction": "one",
+  "from": "identity",
+  "health": "unset",
+  "label": "Clinical single sign-on",
+  "protocol": "SAML",
+  "to": "care-management",
+  "id": "e42"
+ },
+ {
+  "direction": "one",
+  "from": "backup-dr",
+  "health": "unset",
+  "label": "Backup & restore",
+  "protocol": "API",
+  "to": "data-warehouse",
+  "id": "e43"
+ },
+ {
+  "direction": "one",
+  "from": "das",
+  "health": "unset",
+  "label": "Cellular backhaul",
+  "protocol": "IP",
+  "to": "core-network",
+  "id": "e44"
+ },
+ {
+  "direction": "two",
+  "from": "integration-layer",
+  "health": "risk",
+  "label": "Identity resolution",
+  "protocol": "REST",
+  "to": "resident-index",
+  "id": "e45"
+ },
+ {
+  "direction": "one",
+  "from": "event-bus",
+  "health": "risk",
+  "label": "Normalised events",
+  "protocol": "MQTT / AMQP",
+  "to": "integration-layer",
+  "id": "e46"
+ },
+ {
+  "direction": "one",
+  "from": "integration-layer",
+  "health": "watch",
+  "label": "Operational data",
+  "protocol": "REST / ETL",
+  "to": "data-warehouse",
+  "id": "e47"
+ },
+ {
+  "direction": "one",
+  "from": "resident-index",
+  "health": "risk",
+  "label": "Who the resident is",
+  "protocol": "REST",
+  "to": "resident-app",
+  "id": "e48"
+ },
+ {
+  "direction": "two",
+  "from": "resident-index",
+  "health": "risk",
+  "label": "Unit & occupancy",
+  "protocol": "REST",
+  "to": "village-mgmt",
+  "id": "e49"
+ },
+ {
+  "direction": "two",
+  "from": "resident-app",
+  "health": "unset",
+  "label": "Reservations",
+  "protocol": "REST",
+  "to": "bookings",
+  "id": "e50"
+ },
+ {
+  "direction": "two",
+  "from": "resident-app",
+  "health": "unset",
+  "label": "Service requests",
+  "protocol": "REST",
+  "to": "concierge",
+  "id": "e51"
+ },
+ {
+  "direction": "one",
+  "from": "resident-app",
+  "health": "unset",
+  "label": "Push & alerts",
+  "protocol": "REST",
+  "to": "notifications",
+  "id": "e52"
+ },
+ {
+  "direction": "one",
+  "from": "family-portal",
+  "health": "risk",
+  "label": "Consent-gated wellbeing view",
+  "notes": "Needs a consent and privacy model designed before build. A resident must be able to choose what family sees.",
+  "protocol": "REST",
+  "to": "care-management",
+  "id": "e53"
+ },
+ {
+  "direction": "one",
+  "from": "signage",
+  "health": "unset",
+  "label": "Village announcements",
+  "protocol": "REST",
+  "to": "notifications",
+  "id": "e54"
+ },
+ {
+  "direction": "one",
+  "from": "iptv",
+  "health": "unset",
+  "label": "Multicast video",
+  "protocol": "IP",
+  "to": "core-network",
+  "id": "e55"
+ },
+ {
+  "direction": "one",
+  "from": "concierge",
+  "health": "unset",
+  "label": "Escalation to work orders",
+  "protocol": "REST",
+  "to": "service-desk",
+  "id": "e56"
+ },
+ {
+  "direction": "one",
+  "from": "website",
+  "health": "watch",
+  "label": "Enquiry capture",
+  "owner": "Sales & Marketing",
+  "protocol": "REST / webhook",
+  "to": "crm",
+  "id": "e57"
+ },
+ {
+  "direction": "one",
+  "from": "crm",
+  "health": "risk",
+  "label": "Sale becomes a unit register entry",
+  "notes": "The handover from sales to operations. Get this wrong and the unit register and the CRM disagree from day one.",
+  "protocol": "REST",
+  "to": "village-mgmt",
+  "id": "e58"
+ },
+ {
+  "direction": "two",
+  "from": "crm",
+  "health": "unset",
+  "label": "Segments & journeys",
+  "protocol": "REST",
+  "to": "marketing-automation",
+  "id": "e59"
+ },
+ {
+  "direction": "one",
+  "from": "display-suite",
+  "health": "unset",
+  "label": "Walk-in capture",
+  "protocol": "REST",
+  "to": "crm",
+  "id": "e60"
+ },
+ {
+  "direction": "one",
+  "from": "web-analytics",
+  "health": "unset",
+  "label": "Tagging & attribution",
+  "protocol": "JS",
+  "to": "website",
+  "id": "e61"
+ },
+ {
+  "direction": "one",
+  "from": "crm",
+  "health": "unset",
+  "label": "Contract generation",
+  "protocol": "REST",
+  "to": "ora-esign",
+  "id": "e62"
+ },
+ {
+  "direction": "one",
+  "from": "ora-esign",
+  "health": "risk",
+  "label": "Executed occupation right agreement",
+  "protocol": "REST",
+  "to": "village-mgmt",
+  "id": "e63"
+ },
+ {
+  "direction": "one",
+  "from": "village-mgmt",
+  "health": "risk",
+  "label": "ORA, deferred management fee, weekly fees",
+  "owner": "Finance",
+  "protocol": "REST",
+  "to": "finance-erp",
+  "id": "e64"
+ },
+ {
+  "direction": "two",
+  "from": "payroll-rostering",
+  "health": "watch",
+  "label": "Who is on shift",
+  "notes": "Care hours per resident per day is both a compliance number and the largest operating cost. It has to be one number, not two.",
+  "protocol": "REST",
+  "to": "care-management",
+  "id": "e65"
+ },
+ {
+  "direction": "one",
+  "from": "hr-credentials",
+  "health": "risk",
+  "label": "Joiner, mover, leaver",
+  "notes": "A carer who leaves must lose building access and clinical access the same day. This link is how that happens.",
+  "protocol": "SCIM",
+  "to": "identity",
+  "id": "e66"
+ },
+ {
+  "direction": "two",
+  "from": "cmms",
+  "health": "unset",
+  "label": "Work orders",
+  "protocol": "REST",
+  "to": "service-desk",
+  "id": "e67"
+ },
+ {
+  "direction": "one",
+  "from": "pos",
+  "health": "unset",
+  "label": "Daily takings",
+  "protocol": "REST",
+  "to": "finance-erp",
+  "id": "e68"
+ },
+ {
+  "direction": "one",
+  "from": "pos",
+  "health": "watch",
+  "label": "Charge to unit account",
+  "protocol": "REST",
+  "to": "resident-index",
+  "id": "e69"
+ },
+ {
+  "direction": "one",
+  "from": "village-mgmt",
+  "health": "watch",
+  "label": "Register & disclosure statements",
+  "protocol": "Export",
+  "to": "statutory-reporting",
+  "id": "e70"
+ },
+ {
+  "direction": "one",
+  "from": "finance-erp",
+  "health": "unset",
+  "label": "Financial reporting",
+  "protocol": "ETL",
+  "to": "data-warehouse",
+  "id": "e71"
+ },
+ {
+  "direction": "two",
+  "from": "dms",
+  "health": "unset",
+  "label": "ORA & resident documents",
+  "protocol": "REST",
+  "to": "village-mgmt",
+  "id": "e72"
+ }
+]

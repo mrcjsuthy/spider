@@ -1,0 +1,54 @@
+# Render blueprint for the Upland Systems Map.
+# In Render: New → Blueprint → point it at this repository.
+#
+# Read the plan lines before deploying. A free Postgres instance is deleted
+# 30 days after it is created, which is not a place to keep a source of truth.
+
+databases:
+  - name: upland-db
+    databaseName: upland
+    user: upland
+    # `basic-256mb` is the cheapest plan that persists and takes backups.
+    # Change to `free` only for a throwaway trial — see the README.
+    plan: basic-256mb
+    region: oregon
+
+services:
+  - type: web
+    name: upland-systems-map
+    runtime: node
+    plan: starter          # `free` spins down after 15 min idle and stops the poller
+    region: oregon
+    branch: main
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: upland-db
+          property: connectionString
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "20"
+      # Creates the first admin account on first boot, then does nothing.
+      # Set the password in the Render dashboard, sign in, change it there,
+      # and delete this variable.
+      - key: BOOTSTRAP_ADMIN_EMAIL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
+      - key: BOOTSTRAP_ADMIN_NAME
+        sync: false
+      # Loads the 62 seeded systems and 72 links into an empty database.
+      # Set to "false" once you have your own data and never want it back.
+      - key: SEED_ON_BOOT
+        value: "true"
+      # The endpoint poller. Harmless while nothing has an endpoint.
+      - key: MONITOR_ENABLED
+        value: "true"
+      - key: MONITOR_SWEEP_MS
+        value: "30000"
+      - key: SESSION_DAYS
+        value: "14"
