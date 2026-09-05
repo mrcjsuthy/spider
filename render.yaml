@@ -8,16 +8,16 @@ databases:
   - name: upland-db
     databaseName: upland
     user: upland
-    # `basic-256mb` is the cheapest plan that persists and takes backups.
+    # `0.1c-256mb` is the cheapest plan that persists and takes backups.
     # Change to `free` only for a throwaway trial — see the README.
-    plan: basic-256mb
+    plan: 0.1c-256mb
     region: oregon
 
 services:
   - type: web
     name: upland-systems-map
     runtime: node
-    plan: starter          # `free` spins down after 15 min idle and stops the poller
+    plan: 0.5c-512mb       # `free` spins down after 15 min idle and stops the poller
     region: oregon
     branch: main
     buildCommand: npm ci

@@ -99,7 +99,7 @@ links. `admin` can also manage accounts.
 
 ## About the plans — read this before it becomes your source of truth
 
-`render.yaml` asks for **`basic-256mb`** Postgres and a **`starter`** web
+`render.yaml` asks for **`0.1c-256mb`** Postgres and a **`0.5c-512mb`** web
 service on purpose.
 
 - **Render's free Postgres is deleted 30 days after it is created.** There is a
